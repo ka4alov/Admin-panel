@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -14,7 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = DB::table('users')->paginate(5);
+        return view('admin.users.users',['users'=>$users]);//
     }
 
     /**
@@ -24,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');//
     }
 
     /**
@@ -35,6 +39,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        $users = User::create($request->all());
+//        dd($users);
+        return redirect()->route('users.index')->with('message','Продукт успешно добавлен.');
         //
     }
 
@@ -57,7 +64,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);//
+        return view('admin.users.edit',['users'=>$users]);
     }
 
     /**
@@ -69,7 +77,8 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $users = User::findOrFail($id)->update($request->all());
+        return redirect()->route('users.index')->with('message','id -' .$id .' успешно изменен.');////
     }
 
     /**
@@ -80,6 +89,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $users = User::find($id)->delete();//
+        return redirect()->back()->with('message','Пользователь удален.');
     }
 }

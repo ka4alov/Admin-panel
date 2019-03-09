@@ -17,7 +17,7 @@ class ProductsController extends Controller
     public function index()
     {
         $products = DB::table('products')->paginate(5);
-        return view('admin.products',['products'=>$products,]);//
+        return view('admin.products.products',['products'=>$products,]);//
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('admin.create');//
+        return view('admin.products.create');//
     }
 
     /**
@@ -62,7 +62,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $products = Product::find($id);
-        return view('admin.edit',['products'=>$products]);//
+        return view('admin.products.edit',['products'=>$products]);//
     }
 
     /**
@@ -90,4 +90,11 @@ class ProductsController extends Controller
        return redirect()->back()->with('message','id -' .$id .' успешно удален.');
 
     }
+
+//    public function search(Request $request){
+//        $name = $request->get('name');
+//        $products = Product::where('name','like','%'.$name.'%')->get();
+//           return response()->json($products);
+//
+//    }
 }

@@ -19,17 +19,23 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['auth'], 'prefix'=>'admin'], function () {
+Route::group(['middleware' => ['web'], 'prefix'=>'admin'], function () {
     Route::get('/','admin\HomeController@index')->name('admin');
-    Route::get('/users', 'admin\UsersController@index')->name('admin.users');
-    Route::get('/products', 'admin\ProductsController@index')->name('admin.products');
+    Route::get('/users', 'admin\UsersController@index');
+    Route::get('/products', 'admin\ProductsController@index');
+//    Route::get('/products/search', 'admin\ProductsController@search');
 
-    //CRUD
+    //CRUD Users
+
+    Route::resource('/users','admin\UsersController');
+
+    //CRUD Products
 
     Route::resource('/products','admin\ProductsController');
 //
 });
+
 
 
