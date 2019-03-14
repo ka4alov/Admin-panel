@@ -17,11 +17,11 @@ Route::get('/', function () {
     return view('home');
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['web'], 'prefix'=>'admin'], function () {
+Route::group(['middleware' => ['web','auth'], 'prefix'=>'admin'], function () {
     Route::get('/','admin\HomeController@index')->name('admin');
     Route::get('/users', 'admin\UsersController@index');
     Route::get('/products', 'admin\ProductsController@index');
