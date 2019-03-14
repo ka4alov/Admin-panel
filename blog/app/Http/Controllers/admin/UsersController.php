@@ -17,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->paginate(5);
+        $users = User::paginate(5);
         return view('admin.users.users',['users'=>$users]);//
     }
 
