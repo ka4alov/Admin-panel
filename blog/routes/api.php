@@ -1,6 +1,8 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\User as UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return new UserResource(User::find(1));
+//});
+
+// RESTfull Api
+Route::resource('/users', 'Api\UsersController');
